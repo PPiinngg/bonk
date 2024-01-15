@@ -1,0 +1,7 @@
+.{
+    .name = "bonk",
+    .version = "0.0.1",
+
+    .dependencies = .{},
+    .paths = .{""},
+}
