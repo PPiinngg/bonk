@@ -1,8 +1,8 @@
 const std = @import("std");
-
 const bonk = @import("../bonk.zig");
 
-pub fn Allpass1stOrder(comptime T: type) type {
+/// A 1st order IIR allpass
+pub fn Allpass1(comptime T: type) type {
     bonk.assertTypeIsSample(T);
     return struct {
         a1: T = 0,
@@ -20,15 +20,15 @@ pub fn Allpass1stOrder(comptime T: type) type {
             return self.v_1 + (v * self.a1);
         }
 
-        pub inline fn flush(self: *Self) void {
+        pub inline fn clear(self: *Self) void {
             self.v_1 = 0;
         }
     };
 }
 
-pub fn Allpass2ndOrder(comptime T: type) type {
+/// A 2nd order IIR allpass
+pub fn Allpass2(comptime T: type) type {
     bonk.assertTypeIsSample(T);
-
     return struct {
         c: T = 0.125,
         d: T = 0.022,
@@ -63,7 +63,7 @@ pub fn Allpass2ndOrder(comptime T: type) type {
             return y;
         }
 
-        pub inline fn flush(self: *Self) void {
+        pub inline fn clear(self: *Self) void {
             self.v_1 = 0;
             self.v_2 = 0;
         }

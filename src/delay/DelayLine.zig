@@ -12,13 +12,12 @@ pub fn DelayLine(
         buffer: [max_delay]T = undefined,
         read_head: usize = undefined,
         read_head_fract: T = 0,
-        write_head: usize = undefined,
+        write_head: usize = 0,
 
         const Self = @This();
 
         pub inline fn init(self: *Self) void {
             @memset(self.buffer, 0);
-            self.write_head = 0;
             self.setDelaySamples(max_delay / 2);
         }
 
