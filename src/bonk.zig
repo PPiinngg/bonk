@@ -11,12 +11,16 @@ pub const filter = struct {
     pub const Quadrature = @import("filter/quadrature.zig").Quadrature;
 };
 
-pub fn assertTypeIsSample(comptime T: type) void {
-    const T_info: @import("std").builtin.Type = @typeInfo(T);
-    switch (T_info) {
-        .Float => return,
-        else => {},
-    }
-    @compileError("Bad type [" ++ @typeName(T) ++ "]: " ++
-        "Bonk's DSP objects currently only work with floats.");
-}
+pub const frequency = struct {
+    pub const FreqShifter = @import("frequency/FreqShifter.zig").FreqShifter;
+};
+
+pub const math = struct {
+    pub const interpolation = @import("math/interpolation.zig");
+    pub const sine = @import("math/sine.zig");
+};
+
+pub const utility = struct {
+    pub const assert = @import("utility/assert.zig");
+    pub const bit = @import("utility/bit.zig");
+};
