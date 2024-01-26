@@ -27,8 +27,8 @@ pub fn FreqShifter(comptime T: type) T {
             const s_quad = self.quadrature.tick(s);
             const add45 = s_quad[0];
             const sub45 = s_quad[1];
-            const cos = bonk.math.sine.CosTable(T, 32).cos(self.phasor);
-            const sin = bonk.math.sine.SinTable(T, 32).sin(self.phasor);
+            const cos = bonk.math.sine_table.CosTable(T, 32).cos(self.phasor);
+            const sin = bonk.math.sine_table.SinTable(T, 32).sin(self.phasor);
             return .{
                 .pos = add45 * sin + sub45 * cos,
                 .neg = add45 * cos + sub45 * sin,

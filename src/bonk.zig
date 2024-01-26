@@ -17,7 +17,8 @@ pub const frequency = struct {
 
 pub const math = struct {
     pub const interpolation = @import("math/interpolation.zig");
-    pub const sine = @import("math/sine.zig");
+    pub const sine_approx = @import("math/sine_approximations.zig");
+    pub const sine_table = @import("math/sine_table.zig");
 };
 
 pub const utility = struct {
