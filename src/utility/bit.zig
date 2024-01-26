@@ -1,5 +1,9 @@
 const std = @import("std");
 
+fn transmute(comptime T: type, v: anytype) T {
+    return @as(*T, @ptrCast(@constCast(&v))).*;
+}
+
 pub fn pow2ModBitmask(comptime v: anytype) @TypeOf(v) {
     comptime var out_val: @TypeOf(v) = undefined;
     comptime {
@@ -13,4 +17,18 @@ pub fn pow2ModBitmask(comptime v: anytype) @TypeOf(v) {
         out_val = std.math.maxInt(usize) >> ((v_bits - bit_index) + 1);
     }
     return out_val;
+}
+
+fn maskOfTypeSize(comptime T: type) type {
+    return @Type(std.builtin.Type{
+        .Int = .{
+            .signedness = false,
+            .bits = @typeInfo(T).bits,
+        },
+    });
+}
+
+fn getSignBit(v: anytype) maskOfTypeSize(v) {
+    const out_T = maskOfTypeSize(@TypeOf(v));
+    return ~(std.math.maxInt(out_T) >> 1) & transmute(out_T, v);
 }
